@@ -30,4 +30,5 @@ dependencies {
     
     compile group: 'io.vertx', name: 'vertx-core', version: '3.8.1'
     compile group: 'io.vertx', name: 'vertx-web', version: '3.8.1'
+    compile group: 'io.vertx', name: 'vertx-config', version: '3.8.1'
 }
