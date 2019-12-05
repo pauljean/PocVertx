@@ -1,6 +1,6 @@
-package com.pauljean;
+package com.pauljean.sample;
 
-import com.pauljean.controller.MyFirstVertxController;
+import com.pauljean.sample.controller.MyFirstVertxController;
 
 import io.vertx.core.Vertx;
 

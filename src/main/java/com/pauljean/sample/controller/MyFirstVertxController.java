@@ -1,4 +1,4 @@
-package com.pauljean.controller;
+package com.pauljean.sample.controller;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
@@ -29,7 +29,7 @@ public class MyFirstVertxController extends AbstractVerticle {
 
 		});
 
-		serveur.requestHandler(router).listen(7070);
+		serveur.requestHandler(router).listen(7071);
 	}
 
 }
