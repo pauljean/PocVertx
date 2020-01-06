@@ -20,7 +20,7 @@ public class InitVerticles extends BaseVerticles {
 		
 		List<Future> futures= new ArrayList();
 		
-		futures.add(createFuture(vertx, new VerticleServer(), null));
+		futures.add(createFuture(vertx, new VerticleHttpServer(), null));
 		
         CompositeFuture.all(futures).setHandler(r->{
             if(r.succeeded()){

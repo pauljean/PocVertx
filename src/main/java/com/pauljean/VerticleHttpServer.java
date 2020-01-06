@@ -3,6 +3,8 @@ package com.pauljean;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pauljean.handler.LoginHandler;
+
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Future;
@@ -15,11 +17,13 @@ import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 
-public class VerticleServer extends AbstractVerticle {
+public class VerticleHttpServer extends AbstractVerticle {
 
 	private static String BASE_ROUTE = "/poc-vertx";
+	
+	private LoginHandler loginHandler = new LoginHandler();
 
-	Logger logger = LoggerFactory.getLogger(VerticleServer.class);
+	Logger logger = LoggerFactory.getLogger(VerticleHttpServer.class);
 
 	@Override
 	public void start(Future<Void> future) throws Exception {
@@ -29,11 +33,8 @@ public class VerticleServer extends AbstractVerticle {
 		HttpServer serveur = vertx.createHttpServer();
 
 		Router baseRouter = Router.router(vertx);
-		Router subRouter = Router.router(vertx);
 
-		baseRouter = baseRouter.mountSubRouter(BASE_ROUTE, subRouter);
-
-		baseRouter.route().handler(this::dispatcher);
+		baseRouter.route().handler(loginHandler);
 
 		serveur.requestHandler(baseRouter).listen(7070);
 
