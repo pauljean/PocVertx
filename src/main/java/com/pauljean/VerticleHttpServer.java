@@ -1,26 +1,20 @@
 package com.pauljean;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.pauljean.handler.LoginHandler;
+import com.pauljean.utils.BaseVerticles;
 
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerResponse;
-import io.vertx.core.json.Json;
-import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 
-public class VerticleHttpServer extends AbstractVerticle {
+public class VerticleHttpServer extends BaseVerticles {
 
-	private static String BASE_ROUTE = "/poc-vertx";
-	
+	private static String CONTEXT_PATH = "/poc-vertx/*";
+
 	private LoginHandler loginHandler = new LoginHandler();
 
 	Logger logger = LoggerFactory.getLogger(VerticleHttpServer.class);
@@ -32,16 +26,18 @@ public class VerticleHttpServer extends AbstractVerticle {
 
 		HttpServer serveur = vertx.createHttpServer();
 
-		Router baseRouter = Router.router(vertx);
+		Router rootContext = Router.router(vertx);
+		Router loginRoute = Router.router(vertx);
 
-		baseRouter.route().handler(loginHandler);
+		rootContext.route().path(CONTEXT_PATH);
 
-		serveur.requestHandler(baseRouter).listen(7070);
+		rootContext.mountSubRouter("/login", loginRoute).route().handler(loginHandler);
 
-		logger.info("Server starting at port 7070");		
+		serveur.requestHandler(rootContext).listen(7070);
+
+		logger.info("Server starting at port 7070");
 
 	}
-	
 
 	protected void dispatcher(RoutingContext routingContext) {
 
@@ -49,10 +45,8 @@ public class VerticleHttpServer extends AbstractVerticle {
 
 		HttpServerResponse httpResponse = routingContext.response();
 
-		httpResponse
-		.setStatusCode(200)
-		.putHeader("content-type", "application/json; charset=utf-8")
-		.end("reponse dispatcher ");
+		httpResponse.setStatusCode(200).putHeader("content-type", "application/json; charset=utf-8")
+				.end("reponse dispatcher ");
 	}
 
 }
