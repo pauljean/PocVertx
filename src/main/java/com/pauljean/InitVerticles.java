@@ -3,6 +3,7 @@ package com.pauljean;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pauljean.service.LoginVerticle;
 import com.pauljean.utils.BaseVerticles;
 
 import io.vertx.core.CompositeFuture;
@@ -21,6 +22,7 @@ public class InitVerticles extends BaseVerticles {
 		List<Future> futures= new ArrayList();
 		
 		futures.add(createFuture(vertx, new VerticleHttpServer(), null));
+		futures.add(createFuture(vertx, new LoginVerticle(), null));
 		
         CompositeFuture.all(futures).setHandler(r->{
             if(r.succeeded()){

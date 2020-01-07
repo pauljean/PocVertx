@@ -11,7 +11,6 @@ public class MainVertx {
 		Vertx vertx = Vertx.vertx();
 
 		vertx.deployVerticle(new InitVerticles());
-		vertx.deployVerticle(new LoginVerticle());
 
 	}
 

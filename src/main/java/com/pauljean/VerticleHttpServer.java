@@ -13,7 +13,7 @@ import io.vertx.ext.web.RoutingContext;
 
 public class VerticleHttpServer extends BaseVerticles {
 
-	private static String CONTEXT_PATH = "/poc-vertx/*";
+	private static String CONTEXT_PATH = "/poc-vertx/";
 
 	private LoginHandler loginHandler = new LoginHandler();
 
@@ -29,11 +29,13 @@ public class VerticleHttpServer extends BaseVerticles {
 		Router rootContext = Router.router(vertx);
 		Router loginRoute = Router.router(vertx);
 
-		rootContext.route().path(CONTEXT_PATH);
+		rootContext.get(CONTEXT_PATH);
 
-		rootContext.mountSubRouter("/login", loginRoute).route().handler(loginHandler);
 
 		serveur.requestHandler(rootContext).listen(7070);
+		
+		//http://localhost:7070/poc-vertx/login
+		rootContext.mountSubRouter("/login", loginRoute).route().handler(loginHandler);
 
 		logger.info("Server starting at port 7070");
 
