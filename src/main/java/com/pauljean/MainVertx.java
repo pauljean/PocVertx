@@ -1,6 +1,6 @@
 package com.pauljean;
 
-import com.pauljean.service.LoginVerticle;
+import com.pauljean.service.LoginServiceVerticle;
 
 import io.vertx.core.Vertx;
 

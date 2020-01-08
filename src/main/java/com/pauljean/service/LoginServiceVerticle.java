@@ -8,9 +8,9 @@ import io.vertx.core.eventbus.MessageConsumer;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 
-public class LoginVerticle extends BaseVerticles {
+public class LoginServiceVerticle extends BaseVerticles {
 
-	Logger logger = LoggerFactory.getLogger(LoginVerticle.class);
+	Logger logger = LoggerFactory.getLogger(LoginServiceVerticle.class);
 
 	@Override
 	public void start(Future<Void> future) throws Exception {
@@ -32,6 +32,11 @@ public class LoginVerticle extends BaseVerticles {
 		
 		
 
+	}
+	
+	
+	private void someTask() {
+		
 	}
 
 }
