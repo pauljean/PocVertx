@@ -1,7 +1,5 @@
 package com.pauljean;
 
-import com.pauljean.service.LoginServiceVerticle;
-
 import io.vertx.core.Vertx;
 
 public class MainVertx {

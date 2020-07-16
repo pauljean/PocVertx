@@ -13,6 +13,8 @@ import io.vertx.ext.web.RoutingContext;
 
 public class VerticleHttpServer extends BaseVerticles {
 
+	private static int PORT_NUMBER = 7070;
+
 	private static String CONTEXT_PATH = "/poc-vertx/";
 
 	private LoginHandler loginHandler = new LoginHandler();
@@ -29,15 +31,15 @@ public class VerticleHttpServer extends BaseVerticles {
 		Router rootContext = Router.router(vertx);
 		Router loginRoute = Router.router(vertx);
 
-		rootContext.get(CONTEXT_PATH);
+		loginRoute.get("/login").handler(loginHandler);
 
-
-		serveur.requestHandler(rootContext).listen(7070);
-		
-		//http://localhost:7070/poc-vertx/login
-		rootContext.mountSubRouter("/login", loginRoute).route().handler(loginHandler);
+		// http://localhost:7070/poc-vertx/login
+		rootContext.mountSubRouter(CONTEXT_PATH, loginRoute);
+		rootContext.route("/*").handler(this::notFound);
 
 		logger.info("Server starting at port 7070");
+
+		serveur.requestHandler(rootContext).listen(PORT_NUMBER);
 
 	}
 
@@ -49,6 +51,10 @@ public class VerticleHttpServer extends BaseVerticles {
 
 		httpResponse.setStatusCode(200).putHeader("content-type", "application/json; charset=utf-8")
 				.end("reponse dispatcher ");
+	}
+
+	public void notFound(RoutingContext context) {
+		context.response().setStatusCode(404).putHeader("content-type", "application/json").end("bad route");
 	}
 
 }
