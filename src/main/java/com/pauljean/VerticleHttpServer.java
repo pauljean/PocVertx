@@ -1,6 +1,6 @@
 package com.pauljean;
 
-import com.pauljean.handler.LoginHandler;
+import com.pauljean.handler.EventProxyHandler;
 import com.pauljean.utils.BaseVerticles;
 
 import io.vertx.core.Future;
@@ -17,7 +17,7 @@ public class VerticleHttpServer extends BaseVerticles {
 
 	private static String CONTEXT_PATH = "/poc-vertx/";
 
-	private LoginHandler loginHandler = new LoginHandler();
+	private EventProxyHandler eventProxyHandler = new EventProxyHandler();
 
 	Logger logger = LoggerFactory.getLogger(VerticleHttpServer.class);
 
@@ -31,7 +31,7 @@ public class VerticleHttpServer extends BaseVerticles {
 		Router rootContext = Router.router(vertx);
 		Router loginRoute = Router.router(vertx);
 
-		loginRoute.get("/login").handler(loginHandler);
+		loginRoute.get("/login").handler(eventProxyHandler);
 
 		// http://localhost:7070/poc-vertx/login
 		rootContext.mountSubRouter(CONTEXT_PATH, loginRoute);
