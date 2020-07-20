@@ -3,6 +3,7 @@ package com.pauljean;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pauljean.dao.VerticleDao;
 import com.pauljean.service.VerticleService;
 import com.pauljean.utils.BaseVerticles;
 
@@ -23,6 +24,7 @@ public class InitVerticles extends BaseVerticles {
 		
 		futures.add(createFuture(vertx, new VerticleHttpServer(), null));
 		futures.add(createFuture(vertx, new VerticleService(), null));
+		futures.add(createFuture(vertx, new VerticleDao(), null));
 		
         CompositeFuture.all(futures).setHandler(r->{
             if(r.succeeded()){
