@@ -17,7 +17,7 @@ public class VerticleService extends BaseVerticles{
 	@Override
 	public void start(Future<Void> future) throws Exception {
 
-		logger.info("Start LoginVerticle ...");
+		logger.info("Start VerticleService ...");
 		
 		EventBus loginBusConsummer= vertx.eventBus();
 		
